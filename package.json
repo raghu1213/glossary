@@ -8,6 +8,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "cors": "^2.8.4",
+    "nodemon": "^1.17.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
@@ -16,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-server": "babel-node src/server/server.js",
+    "start-server": "nodemon src/server/server.js --exec babel-node --watch src server/*/*.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
