@@ -9,23 +9,31 @@ export default class Search extends Component {
             options: []
         }
         this.onTextChange = this.onTextChange.bind(this);
+        this.onSearchSelected = this.onSearchSelected.bind(this);
     }
 
     onTextChange(event, data) {
         let searchQuery = data.searchQuery;
         searchGlossary(searchQuery).then(result => {
-            console.log(result);
             this.setState({
                 options: result
             });
+            this.props.OnSearchTextChanged();
         });
+    }
+
+    onSearchSelected(event, data) {
+        this.props.OnSearchSelectionChanged(data.options[0]);
     }
 
     render() {
         return (
             <div>
-                <Dropdown search selection options={this.state.options} style={{ width: "100%" }}
-                    placeholder="type in your search string" onSearchChange={this.onTextChange}
+                <Dropdown search selection options={this.state.options}
+                    style={{ width: "100%" }}
+                    placeholder="Enter Search Text  "
+                    onSearchChange={this.onTextChange}
+                    onChange={this.onSearchSelected}
                 />
             </div>
         )
