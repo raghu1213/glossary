@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Grid,TextArea,Button} from 'semantic-ui-react'
 
-class Add extends React.Component{
+class Add extends Component{
 render(){
     return  (
         <div>

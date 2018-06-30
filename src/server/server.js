@@ -7,6 +7,6 @@ app.use('/api', routes);
 
 const server = app.listen(3010, () => {
     const {address, port} = server.address();
-
+    console.log('Listening on --> http://localhost:'  + port)
 
 })

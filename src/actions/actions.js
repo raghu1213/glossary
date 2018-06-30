@@ -3,7 +3,7 @@ import axios from 'axios'
 const BASE_URI = "http://localhost:3010/api"
 
 
-export default searchGlossary => async function searchGlossary(searchString){
+export default async function searchGlossary(searchString){
     let returnedData = [];
     await axios.get(BASE_URI + "/search?searchString=" + searchString).then(function(response){
     console.log(response.data);

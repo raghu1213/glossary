@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Search from './components/search.js'
 import 'semantic-ui-css/semantic.min.css';
-import { Grid, Button, Icon, Popup } from 'semantic-ui-react'
+import { Grid, Button, Popup } from 'semantic-ui-react'
 import Add from './components/add.js';
 
 class App extends Component {
