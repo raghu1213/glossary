@@ -4,7 +4,8 @@ import Search from './components/search.js'
 import 'semantic-ui-css/semantic.min.css';
 import { Grid, Button, Popup } from 'semantic-ui-react'
 import Add from './components/add.js';
-import Details from './components/details'
+import Details from './components/details';
+import addToGlossary from './actions/add';
 
 class App extends Component {
   constructor(props) {
@@ -14,11 +15,12 @@ class App extends Component {
       text: "",
       value: ""
     }
-    this.OnSearchSelectionChanged = this.OnSearchSelectionChanged.bind(this);
-    this.OnSearchTextChanged = this.OnSearchTextChanged.bind(this);
+    this.onSearchSelectionChanged = this.onSearchSelectionChanged.bind(this);
+    this.onSearchTextChanged = this.onSearchTextChanged.bind(this);
+    this.onAddValueToStore = this.onAddValueToStore.bind(this);
   }
 
-  OnSearchSelectionChanged(data) {
+  onSearchSelectionChanged(data) {
     this.setState({
       isSearchSelectionChanged: true,
       text: data.text,
@@ -26,8 +28,12 @@ class App extends Component {
     });
   }
 
-  OnSearchTextChanged() {
+  onSearchTextChanged() {
     this.setState({ isSearchSelectionChanged: false });
+  }
+
+  onAddValueToStore(text, value) {
+    addToGlossary(text, value);
   }
 
   render() {
@@ -45,11 +51,11 @@ class App extends Component {
         <Grid>
           <Grid.Row style={{ margin: "2rem" }}>
             <Grid.Column width={15}>
-              <Search OnSearchSelectionChanged={this.OnSearchSelectionChanged} OnSearchTextChanged={this.OnSearchTextChanged} />
+              <Search onSearchSelectionChanged={this.onSearchSelectionChanged} onSearchTextChanged={this.onSearchTextChanged} />
             </Grid.Column>
             <Grid.Column width={1}>
               <Popup trigger={<Button icon='add' />} flowing hoverable>
-                <Add />
+                <Add onAddValueToStore={this.onAddValueToStore} />
               </Popup>
             </Grid.Column>
           </Grid.Row>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'semantic-ui-react'
-import searchGlossary from '../actions/actions'
+import searchGlossary from '../actions/search'
 
 export default class Search extends Component {
     constructor(props) {
@@ -18,12 +18,12 @@ export default class Search extends Component {
             this.setState({
                 options: result
             });
-            this.props.OnSearchTextChanged();
+            this.props.onSearchTextChanged();
         });
     }
 
     onSearchSelected(event, data) {
-        this.props.OnSearchSelectionChanged(data.options[0]);
+        this.props.onSearchSelectionChanged(data.options[0]);
     }
 
     render() {
