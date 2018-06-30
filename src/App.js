@@ -14,17 +14,17 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-         <Grid>
-            <Grid.Row style= {{margin:"2rem"}}>
-                <Grid.Column width={15}>
-                      <Search/>
-                </Grid.Column>
-                <Grid.Column width={1}>
-                  <Popup trigger={<Button icon='add' />} flowing hoverable>
-                     <Add/>
-                  </Popup>
-                </Grid.Column>
-            </Grid.Row>
+        <Grid>
+          <Grid.Row style={{ margin: "2rem" }}>
+            <Grid.Column width={15}>
+              <Search />
+            </Grid.Column>
+            <Grid.Column width={1}>
+              <Popup trigger={<Button icon='add' />} flowing hoverable>
+                <Add />
+              </Popup>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
 
 

@@ -3,8 +3,9 @@ import GlossaryStore from '../glossaryStore'
 
 const router = express.Router();
 
-router.get("/search", (req, res) =>{
-res.send(GlossaryStore(req.query.searchString))}
+router.get("/search", (req, res) => {
+    res.send(GlossaryStore(req.query.searchString))
+}
 );
 
 export default router;
