@@ -26,6 +26,7 @@ class App extends Component {
   }
 
   onSearchSelectionChanged(title, description) {
+    console.log(title + "--" + description)
     this.setState({
       isSearchSelectionChanged: true,
       title: title,
@@ -37,21 +38,21 @@ class App extends Component {
     this.setState({ isSearchSelectionChanged: false });
     this.setState({ message: "" })
   }
-  onAddValueToStore(title, description) {
-    addToGlossary(title, description);
+  async onAddValueToStore(title, description) {
+    let msg = await addToGlossary(title, description);
     this.onAdd(false);
     this.onSearchTextChanged();
-    this.setState({message:"Saved Successfully"})
+    this.setState({ message: msg.message })
   }
 
   onAdd(show) {
     this.setState({ showAdd: show });
   }
 
-  onDelete() {
-    deleteFromGlossary(this.state.title);
+  async onDelete() {
+    let msg = await deleteFromGlossary(this.state.title);
     this.onSearchTextChanged();
-    this.setState({ message: "Record Deleted" })
+    this.setState({ message: msg.message })
   }
 
   render() {

@@ -25,7 +25,7 @@ export default class Search extends Component {
     onSearchSelected(event, data) {
         let details = data.options.filter(o => o.text === event.target.textContent)[0]
         if (details !== undefined) {
-            this.props.onSearchSelectionChanged(details.value, data.options[0].text);
+            this.props.onSearchSelectionChanged(details.text, details.value);
         }
     }
 
