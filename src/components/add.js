@@ -1,35 +1,48 @@
 import React, { Component } from 'react';
-import { Grid, TextArea, Button } from 'semantic-ui-react'
+import { TextArea, Button } from 'semantic-ui-react'
 class Add extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            description: ''
+        }
+        this.onButtonClick = this.onButtonClick.bind(this);
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onDescriptionChange = this.onDescriptionChange.bind(this);
+    }
     onButtonClick(event, data) {
+        console.log(data);
+        this.props.onAddValueToStore(this.state.title, this.state.description);
+    }
 
-        this.props.onAddValueToStore(this.title.value, this.desc.value);
+    onTitleChange(event, data) {
+        console.log('title-->' + data.value)
+        this.setState({ title: data.value });
+    }
+
+    onDescriptionChange(event, data) {
+        this.setState({ description: data.value });
     }
 
     render() {
         return (
             <div>
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column width={16}>
-                            <TextArea ref="title" placeholder="Jargon/Abbreviation/Anything" style={{ width: "100%" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={16}>
-                            <TextArea ref="desc" placeholder="Description here" rows={5} autoHeight style={{ width: "100%" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={13}>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Button primary onClick={this.onButtonClick}>Add</Button>
-                        </Grid.Column>
-
-                    </Grid.Row>
-                </Grid>
+                <div style={{ textAlign: "left", fontWeight: "Bold" }}>
+                    Title
+                </div>
+                <div style={{ textAlign: "left" }}>
+                    <TextArea style={{ width: "100%" }} rows={1} onChange={this.onTitleChange} />
+                </div>
+                <div style={{ textAlign: "left", fontWeight: "Bold" }}>
+                    Description
+                </div>
+                <div>
+                    <TextArea rows={5} autoHeight style={{ width: "100%" }} onChange={this.onDescriptionChange} />
+                </div>
+                <div style={{ textAlign: "right" }} >
+                    <Button primary onClick={this.onButtonClick}>Add</Button>
+                </div>
             </div>
         )
     }

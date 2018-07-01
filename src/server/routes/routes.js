@@ -8,6 +8,6 @@ router.get("/search", (req, res) => {
 
 });
 router.post("/add", (req, res) => {
-    res.send(AddToGlossary(req.body.text, req.body.value));
+    res.send(AddToGlossary(req.body.title, req.body.description));
 });
 export default router;

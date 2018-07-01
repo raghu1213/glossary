@@ -1,23 +1,25 @@
-var dataStore = [{ "text": "CDM", "value": "Customer Data Management" },
-{ "text": "DDCR", "value": "Due Diligence Client Reporting" }
+var dataStore = [{ "title": "CDM", "description": "Customer Data Management" },
+{ "title": "DDCR", "description": "Due Diligence Client Reporting" }
 ]
 export function SearchGlossary(searchString) {
     var formattedData = [];
+    console.log(JSON.stringify(dataStore))
     for (let data in dataStore) {
-        if (searchString === undefined || searchString.length === 0 || dataStore[data].text.includes(searchString)) {
-            formattedData.push({ key: dataStore[data].text, text: dataStore[data].text, value: dataStore[data].value });
+        JSON.stringify(data);
+        if (searchString === undefined || searchString.length === 0 || dataStore[data].title.includes(searchString)) {
+            formattedData.push({ key: dataStore[data].title, text: dataStore[data].title, value: dataStore[data].description });
         }
 
     }
     return formattedData;
 }
 
-export function AddToGlossary(text, value) {
-
-    if (dataStore.find(v => v.text === text) === undefined) {
-        dataStore.push({ key: text, text: text, value: value })
+export function AddToGlossary(title, description) {
+    if (dataStore.find(v => v.title === title) === undefined) {
+        console.log('Not found')
+        dataStore.push({ title: title, description: description })
     }
-
+    return 'Value added to store'
 }
 
 export default { SearchGlossary, AddToGlossary }

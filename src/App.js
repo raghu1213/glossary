@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import Search from './components/search.js'
 import 'semantic-ui-css/semantic.min.css';
-import { Grid, Button, Popup } from 'semantic-ui-react'
+import { Grid, Button } from 'semantic-ui-react'
 import Add from './components/add.js';
 import Details from './components/details';
 import addToGlossary from './actions/add';
+import PageHeader from './components/pageHeader'
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
     this.state = {
       isSearchSelectionChanged: false,
       text: "",
-      value: ""
+      value: "",
+      showAdd: false
     }
     this.onSearchSelectionChanged = this.onSearchSelectionChanged.bind(this);
     this.onSearchTextChanged = this.onSearchTextChanged.bind(this);
@@ -31,9 +33,13 @@ class App extends Component {
   onSearchTextChanged() {
     this.setState({ isSearchSelectionChanged: false });
   }
-
   onAddValueToStore(text, value) {
     addToGlossary(text, value);
+    this.onAdd(false);
+  }
+
+  onAdd(show) {
+    this.setState({ showAdd: show });
   }
 
   render() {
@@ -43,24 +49,39 @@ class App extends Component {
       detail = <Details text={this.state.text} value={this.state.value} />
     }
 
+    const showAddControl = this.state.showAdd;
+    let addControl = null;
+    if (showAddControl) {
+      addControl = <Add onAddValueToStore={this.onAddValueToStore} />
+    }
+
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Glossary of Jargons</h1>
-        </header>
+        <PageHeader />
         <Grid>
           <Grid.Row style={{ margin: "2rem" }}>
-            <Grid.Column width={15}>
+            <Grid.Column width={2} />
+            <Grid.Column width={10}>
               <Search onSearchSelectionChanged={this.onSearchSelectionChanged} onSearchTextChanged={this.onSearchTextChanged} />
             </Grid.Column>
             <Grid.Column width={1}>
-              <Popup trigger={<Button icon='add' />} flowing hoverable>
-                <Add onAddValueToStore={this.onAddValueToStore} />
-              </Popup>
+              <Button content="Add" onClick={() => this.onAdd(true)} />
             </Grid.Column>
+            <Grid.Column width={2} />
+          </Grid.Row>
+          <Grid.Row style={{ margin: "2rem" }}>
+            <Grid.Column width={2} />
+            <Grid.Column width={10}>
+              {detail}
+              {addControl}
+            </Grid.Column>
+            <Grid.Column width={1}>
+             
+            </Grid.Column>
+            <Grid.Column width={2} />
           </Grid.Row>
         </Grid>
-        {detail}
+       
       </div>
     );
   }
