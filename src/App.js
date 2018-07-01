@@ -6,47 +6,59 @@ import { Grid, Button } from 'semantic-ui-react'
 import Add from './components/add.js';
 import Details from './components/details';
 import addToGlossary from './actions/add';
-import PageHeader from './components/pageHeader'
+import deleteFromGlossary from './actions/delete';
+import PageHeader from './components/pageHeader';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isSearchSelectionChanged: false,
-      text: "",
-      value: "",
+      title: "",
+      description: "",
+      message: "",
       showAdd: false
     }
     this.onSearchSelectionChanged = this.onSearchSelectionChanged.bind(this);
     this.onSearchTextChanged = this.onSearchTextChanged.bind(this);
     this.onAddValueToStore = this.onAddValueToStore.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
-  onSearchSelectionChanged(data) {
+  onSearchSelectionChanged(title, description) {
     this.setState({
       isSearchSelectionChanged: true,
-      text: data.text,
-      value: data.value
+      title: title,
+      description: description
     });
   }
 
   onSearchTextChanged() {
     this.setState({ isSearchSelectionChanged: false });
+    this.setState({ message: "" })
   }
-  onAddValueToStore(text, value) {
-    addToGlossary(text, value);
+  onAddValueToStore(title, description) {
+    addToGlossary(title, description);
     this.onAdd(false);
+    this.onSearchTextChanged();
+    this.setState({message:"Saved Successfully"})
   }
 
   onAdd(show) {
     this.setState({ showAdd: show });
   }
 
+  onDelete() {
+    deleteFromGlossary(this.state.title);
+    this.onSearchTextChanged();
+    this.setState({ message: "Record Deleted" })
+  }
+
   render() {
     let detail = null;
     const isSearchSelectionChanged = this.state.isSearchSelectionChanged;
     if (isSearchSelectionChanged) {
-      detail = <Details text={this.state.text} value={this.state.value} />
+      detail = <Details title={this.state.title} description={this.state.description} remove={this.onDelete} />
     }
 
     const showAddControl = this.state.showAdd;
@@ -69,19 +81,26 @@ class App extends Component {
             </Grid.Column>
             <Grid.Column width={2} />
           </Grid.Row>
-          <Grid.Row style={{ margin: "2rem" }}>
+          <Grid.Row>
             <Grid.Column width={2} />
             <Grid.Column width={10}>
               {detail}
               {addControl}
             </Grid.Column>
-            <Grid.Column width={1}>
-             
-            </Grid.Column>
+            <Grid.Column width={1} />
             <Grid.Column width={2} />
           </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={2} />
+            <Grid.Column width={10}>
+              <div>{this.state.message}</div>
+            </Grid.Column>
+            <Grid.Column width={1} />
+            <Grid.Column width={2} />
+          </Grid.Row>
+
         </Grid>
-       
+
       </div>
     );
   }

@@ -12,12 +12,10 @@ class Add extends Component {
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
     }
     onButtonClick(event, data) {
-        console.log(data);
         this.props.onAddValueToStore(this.state.title, this.state.description);
     }
 
     onTitleChange(event, data) {
-        console.log('title-->' + data.value)
         this.setState({ title: data.value });
     }
 

@@ -3,7 +3,6 @@ var dataStore = [{ "title": "CDM", "description": "Customer Data Management" },
 ]
 export function SearchGlossary(searchString) {
     var formattedData = [];
-    console.log(JSON.stringify(dataStore))
     for (let data in dataStore) {
         JSON.stringify(data);
         if (searchString === undefined || searchString.length === 0 || dataStore[data].title.includes(searchString)) {
@@ -16,10 +15,15 @@ export function SearchGlossary(searchString) {
 
 export function AddToGlossary(title, description) {
     if (dataStore.find(v => v.title === title) === undefined) {
-        console.log('Not found')
         dataStore.push({ title: title, description: description })
     }
-    return 'Value added to store'
+    return title + ' added to store'
+}
+export function DeleteFromGlossary(title) {
+    let newStore = dataStore.filter((obj) => obj.title != title)
+    dataStore = newStore;
+    let msg = "DELETED --> " + title;
+    return msg;
 }
 
-export default { SearchGlossary, AddToGlossary }
+export default { SearchGlossary, AddToGlossary, DeleteFromGlossary }

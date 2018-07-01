@@ -1,21 +1,24 @@
 import React from 'react'
 import { Item } from 'semantic-ui-react'
+import Delete from './delete'
 
-const Details = (props) => {
+const Details = ({ title, description, remove }) => {
     return (
         <Item.Group>
             <Item>
                 <Item.Content>
-                    <Item.Header as='a'>{props.text}</Item.Header>
+                    <Item.Header as='a'>{title}</Item.Header>
                 </Item.Content>
             </Item>
 
             <Item>
                 <Item.Content>
-                    <Item.Meta>{props.value}</Item.Meta>
+                    <Item.Meta>{description}</Item.Meta>
                 </Item.Content>
             </Item>
+            <Delete remove={remove} />
         </Item.Group>
+        
     );
 }
 

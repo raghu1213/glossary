@@ -23,17 +23,21 @@ export default class Search extends Component {
     }
 
     onSearchSelected(event, data) {
-        this.props.onSearchSelectionChanged(data.options[0]);
+        let details = data.options.filter(o => o.text === event.target.textContent)[0]
+        if (details !== undefined) {
+            this.props.onSearchSelectionChanged(details.value, data.options[0].text);
+        }
     }
 
     render() {
         return (
             <div>
-                <Dropdown search selection options={this.state.options}
+                <Dropdown fluid search selection options={this.state.options}
                     style={{ width: "100%" }}
                     placeholder="Enter Search Text  "
                     onSearchChange={this.onTextChange}
                     onChange={this.onSearchSelected}
+
                 />
             </div>
         )
