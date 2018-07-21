@@ -8,5 +8,6 @@ export default async function searchGlossary(searchString) {
     await axios.get(BASE_URI + "/search?searchString=" + searchString).then(function (response) {
         returnedData = response.data;
     });
+    console.log("Action-->" + JSON.stringify (returnedData))
     return returnedData;
 }

@@ -2,7 +2,13 @@ var GlossarySchema = require('./db/glossarySchema');
 
 export async function SearchGlossary(searchString) {
     var formattedData = [];
-    let dataStore = await GlossarySchema.find().byRegex(searchString).exec();
+    let dataStore
+    if (searchString.length > 0) {
+        dataStore = await GlossarySchema.find().byRegex(searchString).exec();
+    }
+    else {
+        dataStore = await GlossarySchema.find().findAll().exec();        
+    }
     for (let data in dataStore) {
         formattedData.push({ key: dataStore[data].title, text: dataStore[data].title, value: dataStore[data].description });
     }

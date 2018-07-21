@@ -8,7 +8,8 @@ import Details from './components/details';
 import addToGlossary from './actions/add';
 import deleteFromGlossary from './actions/delete';
 import PageHeader from './components/pageHeader';
-
+import AlphabeticalControl from './components/alphabeticalDisplay';
+import searchGlossary from '../src/actions/search'
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,12 +18,22 @@ class App extends Component {
       title: "",
       description: "",
       message: "",
-      showAdd: false
+      showAdd: false,
+      allResults: []
     }
     this.onSearchSelectionChanged = this.onSearchSelectionChanged.bind(this);
     this.onSearchTextChanged = this.onSearchTextChanged.bind(this);
     this.onAddValueToStore = this.onAddValueToStore.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.fetchAll();
+  }
+
+  fetchAll() {
+    searchGlossary("").then(result => {
+      this.setState({
+        allResults: result
+      });
+    })
   }
 
   onSearchSelectionChanged(title, description) {
@@ -43,6 +54,7 @@ class App extends Component {
     this.onAdd(false);
     this.onSearchTextChanged();
     this.setState({ message: msg.message })
+    this.fetchAll();
   }
 
   onAdd(show) {
@@ -83,7 +95,9 @@ class App extends Component {
             <Grid.Column width={2} />
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={2} />
+            <Grid.Column width={2} >
+              <AlphabeticalControl allResults={this.state.allResults} onSearchSelectionChanged={this.onSearchSelectionChanged} />
+            </Grid.Column>
             <Grid.Column width={10}>
               {detail}
               {addControl}
